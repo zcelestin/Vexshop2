@@ -4,6 +4,7 @@ import 'banner.dart';
 
 void main() {
   runApp(const MaterialApp(
+    color: Colors.blue,
     debugShowCheckedModeBanner: false,
     home: HomePage(),
   ));

@@ -40,12 +40,12 @@ class _BannerWidgetState extends State<BannerWidget> {
           bottom: 10.0,
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: const DotsIndicator(
                   dotsCount: 6,
                   decorator: DotsDecorator(
-                    color: Colors.black87, // Inactive color
+                    color: Color.fromARGB(221, 20, 20, 20), // Inactive color
                     activeColor: Colors.redAccent,
                   ),
                 ),
