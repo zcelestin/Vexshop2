@@ -45,14 +45,69 @@ class _State extends State<HomePage> {
         ],
       ),
       drawer: Drawer(
-        child: ListView(padding: EdgeInsets.zero, children: const [
-          DrawerHeader(child: Text("Vendeur Express")),
-          ListTile(title: Text("Acceuil")),
-          ListTile(title: Text("VexShop")),
-          ListTile(title: Text("A propos")),
-          ListTile(title: Text("Blog")),
-          ListTile(title: Text("Contactez-nous")),
-          ListTile(title: Text("S'inscrire"))
+        child: ListView(padding: EdgeInsets.zero, children: <Widget>[
+          UserAccountsDrawerHeader(
+            accountName: const Text('vendeur Express'),
+            accountEmail: const Text("vendeurexpress@gmail.com"),
+            currentAccountPicture: GestureDetector(
+              child: const CircleAvatar(
+                backgroundColor: Colors.grey,
+                child: Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.red,
+            ),
+          ),
+//           body
+          const InkWell(
+            child: ListTile(
+              title: Text('Acceuil'),
+              leading: Icon(Icons.home),
+            ),
+          ),
+          const InkWell(
+            child: ListTile(
+              title: Text('Mon Compte'),
+              leading: Icon(Icons.person),
+            ),
+          ),
+          const InkWell(
+            child: ListTile(
+              title: Text('Mes Commandes'),
+              leading: Icon(Icons.shopping_basket),
+            ),
+          ),
+          const InkWell(
+            child: ListTile(
+              title: Text('Categories'),
+              leading: Icon(Icons.dashboard),
+            ),
+          ),
+          const Divider(),
+          const InkWell(
+            child: ListTile(
+              title: Text('Paramètre'),
+              leading: Icon(Icons.settings),
+            ),
+          ),
+          const InkWell(
+            child: ListTile(
+              title: Text('A propos'),
+              leading: Icon(Icons.help),
+            ),
+          ),
+          const InkWell(
+            child: ListTile(
+              title: Text('Deconnexion'),
+              leading: Icon(Icons.logout),
+            ),
+          ),
+          // ListTile(title: Text("Contactez-nous")),
+          // ListTile(title: Text("S'inscrire"))
         ]),
       ),
       body: ListView(
