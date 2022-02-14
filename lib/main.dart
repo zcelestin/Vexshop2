@@ -1,117 +1,83 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:vexshop/register.dart';
-import 'banner.dart';
+import 'package:flutter/services.dart';
+import 'package:vexshop/screens/account_screen.dart';
+import 'package:vexshop/screens/cart_screen.dart';
+import 'package:vexshop/screens/home_screen.dart';
+import 'package:vexshop/screens/login_screen.dart';
+import 'package:vexshop/screens/main_screen.dart';
+import 'package:vexshop/screens/on_boarbing_screen.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:vexshop/screens/registration_screen.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    color: Colors.blue,
-    debugShowCheckedModeBanner: false,
-    home: HomePage(),
-  ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  await GetStorage.init();
+  runApp(const MyApp());
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  @override
-  _State createState() => _State();
-}
-
-class _State extends State<HomePage> {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      //delete the debug banner
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: SplashScreen.id,
+      routes: {
+        SplashScreen.id: (context) => const SplashScreen(),
+        OnBoardingScreen.id: (context) => const OnBoardingScreen(),
+        LoginScreen.id: (context) => const LoginScreen(),
+        HomeScreen.id: (context) => const HomeScreen(),
+        AccountScreen.id: (context) => const AccountScreen(),
+        CartScreen.id: (context) => const CartScreen(),
+        RegistrationScreen.id: (context) => const RegistrationScreen(),
+        MainScreen.id: (context) => const MainScreen()
+      },
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+  static const String id = 'Splash_screen';
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  final store = GetStorage();
+  @override
+  void initState() {
+    Timer(
+      const Duration(seconds: 3),
+      () {
+        bool? _boarding = store.read('onBoarding');
+        _boarding == null
+            ? Navigator.pushReplacementNamed(context, OnBoardingScreen.id)
+            : _boarding == true
+                ? Navigator.pushReplacementNamed(context, MainScreen.id)
+                : Navigator.pushReplacementNamed(context, OnBoardingScreen.id);
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: []);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('VexShop'),
-        actions: <Widget>[
-          IconButton(
-              icon: const Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: ((context) => const SignUp()),
-                  ),
-                );
-              }),
-          IconButton(
-              icon: const Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-              ),
-              onPressed: () {}),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(padding: EdgeInsets.zero, children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: const Text('vendeur Express'),
-            accountEmail: const Text("vendeurexpress@gmail.com"),
-            currentAccountPicture: GestureDetector(
-              child: const CircleAvatar(
-                backgroundColor: Colors.grey,
-                child: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.red,
-            ),
-          ),
-//           body
-          const InkWell(
-            child: ListTile(
-              title: Text('Acceuil'),
-              leading: Icon(Icons.home),
-            ),
-          ),
-          const InkWell(
-            child: ListTile(
-              title: Text('Mon Compte'),
-              leading: Icon(Icons.person),
-            ),
-          ),
-          const InkWell(
-            child: ListTile(
-              title: Text('Mes Commandes'),
-              leading: Icon(Icons.shopping_basket),
-            ),
-          ),
-          const InkWell(
-            child: ListTile(
-              title: Text('Categories'),
-              leading: Icon(Icons.dashboard),
-            ),
-          ),
-          const Divider(),
-          const InkWell(
-            child: ListTile(
-              title: Text('Paramètre'),
-              leading: Icon(Icons.settings),
-            ),
-          ),
-          const InkWell(
-            child: ListTile(
-              title: Text('A propos'),
-              leading: Icon(Icons.help),
-            ),
-          ),
-          const InkWell(
-            child: ListTile(
-              title: Text('Deconnexion'),
-              leading: Icon(Icons.logout),
-            ),
-          ),
-          // ListTile(title: Text("Contactez-nous")),
-          // ListTile(title: Text("S'inscrire"))
-        ]),
-      ),
-      body: ListView(
-        children: const <Widget>[BannerWidget()],
+      backgroundColor: Colors.white,
+      body: Center(
+        child:
+            Image.asset('assets/images/logo.png'), // Need to show our Logo here
+        //
       ),
     );
   }
