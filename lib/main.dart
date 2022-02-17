@@ -73,12 +73,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: []);
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child:
-            Image.asset('assets/images/logo.png'), // Need to show our Logo here
-        //
-      ),
-    );
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Image.asset(
+              'assets/images/logo.png'), // Need to show our Logo here
+          //
+        ));
   }
 }
